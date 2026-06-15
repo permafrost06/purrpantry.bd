@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purr Pantry - Checkout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral: #FF6B5A;
+    --coral-dark: #E85A4A;
+    --sunshine: #FFD23F;
+    --mint: #7ECFB3;
+    --mint-dark: #5BB89A;
+    --lavender: #B8A9E8;
+    --sky: #7EB8E0;
+    --cream: #FFF8F0;
+    --peach: #FFE5D4;
+    --charcoal: #2D2A32;
+    --brown: #4A3728;
+    --soft-pink: #FFD1CA;
+    --light-gray: #F0EDE8;
+    --border: #E8E3DC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 60px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+    border: 2px solid var(--peach);
+  }
+
+  .logo {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--coral);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+  }
+
+  .logo-paw {
+    font-size: 1.1rem;
+    display: inline-block;
+    animation: pawWiggle 2s ease-in-out infinite;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 0.3rem;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--charcoal);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    transition: all 0.3s;
+  }
+
+  nav a:hover {
+    background: var(--peach);
+    color: var(--coral);
+  }
+
+  .nav-back {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* Page header */
+  .page-header {
+    padding: 8rem 4rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 80% 30%, rgba(255, 210, 63, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 20% 70%, rgba(126, 207, 179, 0.12) 0%, transparent 40%),
+      var(--cream);
+  }
+
+  .page-header .section-tag {
+    display: inline-block;
+    background: var(--sunshine);
+    color: var(--brown);
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    transform: rotate(-1deg);
+  }
+
+  .page-header h1 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 2.8rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-header p {
+    font-size: 1rem;
+    color: var(--charcoal);
+    opacity: 0.6;
+  }
+
+  /* Checkout layout */
+  .checkout-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 4rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* Product cards */
+  .products-section h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 24px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 1.2rem;
+    align-items: center;
+    border: 3px solid transparent;
+    transition: all 0.3s;
+    cursor: default;
+  }
+
+  .product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  }
+
+  .product-card:nth-child(1) { border-color: var(--sunshine); }
+  .product-card:nth-child(2) { border-color: var(--mint); }
+  .product-card:nth-child(3) { border-color: var(--lavender); }
+
+  .product-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  .product-card:nth-child(1) .product-icon { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+  .product-card:nth-child(2) .product-icon { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+  .product-card:nth-child(3) .product-icon { background: linear-gradient(135deg, #E8EAF6, #D1C4E9); }
+
+  .product-details h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    color: var(--charcoal);
+  }
+
+  .product-tag {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 50px;
+    margin-bottom: 0.35rem;
+  }
+
+  .product-card:nth-child(1) .product-tag { background: #FFF3E0; color: #E65100; }
+  .product-card:nth-child(2) .product-tag { background: #E8F5E9; color: #2E7D32; }
+  .product-card:nth-child(3) .product-tag { background: #E8EAF6; color: #283593; }
+
+  .product-desc {
+    font-size: 0.78rem;
+    color: var(--charcoal);
+    opacity: 0.55;
+    line-height: 1.45;
+    max-width: 320px;
+  }
+
+  .product-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.6rem;
+  }
+
+  .product-price {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    color: var(--coral);
+    font-weight: 700;
+  }
+
+  .qty-control {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--cream);
+    border-radius: 50px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+  }
+
+  .qty-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .qty-btn:hover {
+    background: var(--coral);
+    color: white;
+  }
+
+  .qty-value {
+    width: 40px;
+    text-align: center;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    border: none;
+    background: transparent;
+  }
+
+  .line-total {
+    font-size: 0.75rem;
+    color: var(--charcoal);
+    opacity: 0.5;
+  }
+
+  /* Size toggle */
+  .size-toggle {
+    display: flex;
+    gap: 0;
+    background: var(--cream);
+    border-radius: 50px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    margin-bottom: 0.3rem;
+  }
+
+  .size-option {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: center;
+    color: var(--charcoal);
+    opacity: 0.5;
+    white-space: nowrap;
+    border: none;
+    background: transparent;
+    line-height: 1.3;
+  }
+
+  .size-option.active {
+    background: var(--coral);
+    color: white;
+    opacity: 1;
+    border-radius: 50px;
+  }
+
+  .size-option:hover:not(.active) {
+    opacity: 0.8;
+  }
+
+  .product-price {
+    transition: transform 0.2s;
+  }
+
+  .product-price.price-bump {
+    transform: scale(1.15);
+  }
+
+  /* Order summary sidebar */
+  .order-sidebar {
+    position: sticky;
+    top: 6rem;
+  }
+
+  .summary-card {
+    background: white;
+    border-radius: 28px;
+    padding: 2rem;
+    border: 3px solid var(--peach);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+  }
+
+  .summary-card h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .summary-items {
+    margin-bottom: 1.5rem;
+  }
+
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    font-size: 0.88rem;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .summary-line:last-child { border-bottom: none; }
+
+  .summary-line .item-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .summary-line .item-qty {
+    font-size: 0.72rem;
+    background: var(--cream);
+    padding: 0.15rem 0.5rem;
+    border-radius: 50px;
+    color: var(--charcoal);
+    opacity: 0.7;
+  }
+
+  .summary-line .item-price {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .summary-empty {
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 0.88rem;
+    color: var(--charcoal);
+    opacity: 0.4;
+  }
+
+  .summary-divider {
+    height: 2px;
+    background: linear-gradient(to right, var(--sunshine), var(--coral), var(--lavender));
+    border-radius: 2px;
+    margin: 0.5rem 0;
+  }
+
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0 0.5rem;
+  }
+
+  .summary-total .label {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .summary-total .amount {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--coral);
+  }
+
+  /* Delivery info */
+  .delivery-section {
+    margin-top: 2rem;
+  }
+
+  .delivery-section h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--charcoal);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: var(--charcoal);
+    background: white;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--coral);
+    box-shadow: 0 0 0 4px rgba(255, 107, 90, 0.1);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--charcoal);
+    opacity: 0.3;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  /* Payment section */
+  .payment-section {
+    margin-top: 2rem;
+  }
+
+  .payment-section h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .payment-option {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    border: 3px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .payment-option:hover {
+    border-color: var(--peach);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  }
+
+  .payment-option.selected {
+    border-color: var(--coral);
+    box-shadow: 0 6px 25px rgba(255, 107, 90, 0.15);
+  }
+
+  .payment-option.selected::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--coral), var(--sunshine));
+  }
+
+  .payment-option input[type="radio"] {
+    display: none;
+  }
+
+  .payment-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .payment-radio {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+
+  .payment-option.selected .payment-radio {
+    border-color: var(--coral);
+  }
+
+  .payment-radio-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--coral);
+    transform: scale(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .payment-option.selected .payment-radio-dot {
+    transform: scale(1);
+  }
+
+  .payment-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .payment-bkash .payment-icon {
+    background: linear-gradient(135deg, #E2136E, #D4145A);
+    color: white;
+    font-weight: 700;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: -0.02em;
+  }
+
+  .payment-cod .payment-icon {
+    background: linear-gradient(135deg, var(--mint), var(--mint-dark));
+    color: white;
+  }
+
+  .payment-info h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.05rem;
+    margin-bottom: 0.15rem;
+    color: var(--charcoal);
+  }
+
+  .payment-info p {
+    font-size: 0.78rem;
+    color: var(--charcoal);
+    opacity: 0.5;
+    line-height: 1.4;
+  }
+
+  /* bKash details panel */
+  .bkash-details {
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 2px dashed var(--border);
+    display: none;
+  }
+
+  .payment-option.selected .bkash-details {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+
+  .bkash-steps {
+    background: #FFF0F5;
+    border-radius: 16px;
+    padding: 1.2rem;
+  }
+
+  .bkash-steps h4 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.9rem;
+    color: #D4145A;
+    margin-bottom: 0.8rem;
+  }
+
+  .bkash-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--charcoal);
+    opacity: 0.75;
+  }
+
+  .bkash-step-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #E2136E;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .bkash-number {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    background: white;
+    border-radius: 12px;
+    border: 2px dashed #E2136E;
+    text-align: center;
+  }
+
+  .bkash-number span {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #D4145A;
+    letter-spacing: 0.05em;
+  }
+
+  .bkash-number small {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--charcoal);
+    opacity: 0.4;
+    margin-top: 0.2rem;
+  }
+
+  .bkash-trx-field {
+    margin-top: 1rem;
+  }
+
+  .bkash-trx-field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #D4145A;
+    margin-bottom: 0.4rem;
+  }
+
+  .bkash-trx-field input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #F0C0D4;
+    border-radius: 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    color: var(--charcoal);
+    outline: none;
+    background: white;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .bkash-trx-field input:focus {
+    border-color: #E2136E;
+    box-shadow: 0 0 0 4px rgba(226, 19, 110, 0.08);
+  }
+
+  .bkash-trx-field input::placeholder {
+    color: var(--charcoal);
+    opacity: 0.3;
+  }
+
+  /* COD details */
+  .cod-details {
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 2px dashed var(--border);
+    display: none;
+  }
+
+  .payment-option.selected .cod-details {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+
+  .cod-info-box {
+    background: #E8F5E9;
+    border-radius: 16px;
+    padding: 1.2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .cod-info-box .cod-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .cod-info-box p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--charcoal);
+    opacity: 0.7 !important;
+  }
+
+  /* Place order button */
+  .place-order-section {
+    margin-top: 2rem;
+  }
+
+  .btn-place-order {
+    width: 100%;
+    padding: 1.1rem 2rem;
+    border-radius: 60px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+    background: var(--coral);
+    color: white;
+    box-shadow: 0 8px 25px rgba(255, 107, 90, 0.3);
+  }
+
+  .btn-place-order:hover {
+    background: var(--coral-dark);
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 12px 35px rgba(255, 107, 90, 0.4);
+  }
+
+  .btn-place-order:active {
+    transform: translateY(0) scale(0.99);
+  }
+
+  .btn-place-order:disabled {
+    background: var(--border);
+    color: var(--charcoal);
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .order-note {
+    text-align: center;
+    margin-top: 0.8rem;
+    font-size: 0.72rem;
+    color: var(--charcoal);
+    opacity: 0.4;
+  }
+
+  /* Success overlay */
+  .success-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(45, 42, 50, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .success-overlay.show {
+    display: flex;
+  }
+
+  .success-card {
+    background: white;
+    border-radius: 32px;
+    padding: 3rem;
+    text-align: center;
+    max-width: 440px;
+    width: 90%;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .success-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--sunshine), var(--coral), var(--mint), var(--lavender));
+  }
+
+  .success-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+    animation: bounceIn 0.6s 0.2s both;
+  }
+
+  .success-card h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.8rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+  }
+
+  .success-card p {
+    font-size: 0.92rem;
+    color: var(--charcoal);
+    opacity: 0.6;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .success-btn {
+    display: inline-flex;
+    padding: 0.9rem 2.5rem;
+    border-radius: 60px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    background: var(--coral);
+    color: white;
+    transition: all 0.3s;
+  }
+
+  .success-btn:hover {
+    background: var(--coral-dark);
+    transform: translateY(-2px);
+  }
+
+  /* Footer */
+  footer {
+    padding: 3rem 4rem;
+    background: var(--charcoal);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+  }
+
+  footer .logo { color: var(--coral); text-decoration: none; }
+
+  footer span {
+    font-size: 0.8rem;
+    opacity: 0.3;
+  }
+
+  /* Animations */
+  @keyframes pawWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.3); }
+    50% { transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+
+  .shake {
+    animation: shake 0.5s ease;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="variation-3-retro.html" class="logo">
+    <span class="logo-paw">🐾</span>
+    Purr Pantry
+  </a>
+  <ul>
+    <li><a href="variation-3-retro.html" class="nav-back">&larr; Back to Menu</a></li>
+  </ul>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="section-tag">Almost there!</div>
+  <h1>Checkout</h1>
+  <p>Pick your meals, tell us where to deliver, and choose how to pay.</p>
+</div>
+
+<!-- Checkout Content -->
+<div class="checkout-layout">
+
+  <!-- Left column: Products, Delivery, Payment -->
+  <div class="checkout-main">
+
+    <!-- Products -->
+    <section class="products-section">
+      <h2>Choose Your Meals</h2>
+
+      <div class="product-card" data-product="complete" data-price-500="250" data-price-1000="450">
+        <div class="product-icon">🍲</div>
+        <div class="product-details">
+          <div class="product-tag">Best Seller</div>
+          <h3>Purr Pantry Complete</h3>
+          <p class="product-desc">Chicken, liver, mackerel, pumpkin & carrot. Balanced nutrition for everyday feeding and hydration.</p>
+        </div>
+        <div class="product-controls">
+          <div class="size-toggle">
+            <button class="size-option active" data-size="500">500g</button>
+            <button class="size-option" data-size="1000">1kg</button>
+          </div>
+          <span class="product-price">৳250</span>
+          <div class="qty-control">
+            <button class="qty-btn qty-minus" aria-label="Decrease quantity">-</button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <span class="line-total"></span>
+        </div>
+      </div>
+
+      <div class="product-card" data-product="chicken" data-price-500="220" data-price-1000="420">
+        <div class="product-icon">🍗</div>
+        <div class="product-details">
+          <div class="product-tag">Fish-Free</div>
+          <h3>Pure Chicken</h3>
+          <p class="product-desc">Chicken, liver, pumpkin & carrot. Same goodness, no fish. For cats that don't like fish.</p>
+        </div>
+        <div class="product-controls">
+          <div class="size-toggle">
+            <button class="size-option active" data-size="500">500g</button>
+            <button class="size-option" data-size="1000">1kg</button>
+          </div>
+          <span class="product-price">৳220</span>
+          <div class="qty-control">
+            <button class="qty-btn qty-minus" aria-label="Decrease quantity">-</button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <span class="line-total"></span>
+        </div>
+      </div>
+
+      <div class="product-card" data-product="ocean" data-price-500="260" data-price-1000="480">
+        <div class="product-icon">🐟</div>
+        <div class="product-details">
+          <div class="product-tag">Fish Lovers</div>
+          <h3>Ocean Feast</h3>
+          <p class="product-desc">Mackerel, pumpkin & carrot. Irresistible aroma for seafood loving cats. Supplemental meal or rotational flavor.</p>
+        </div>
+        <div class="product-controls">
+          <div class="size-toggle">
+            <button class="size-option active" data-size="500">500g</button>
+            <button class="size-option" data-size="1000">1kg</button>
+          </div>
+          <span class="product-price">৳260</span>
+          <div class="qty-control">
+            <button class="qty-btn qty-minus" aria-label="Decrease quantity">-</button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <span class="line-total"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Delivery Info -->
+    <section class="delivery-section">
+      <h2>Delivery Details</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" placeholder="e.g. Nadia Rahman" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="01XXXXXXXXX" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address">Delivery Address</label>
+        <textarea id="address" placeholder="House, road, area, city..." required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="notes">Notes (optional)</label>
+        <input type="text" id="notes" placeholder="Any special instructions, allergies, etc.">
+      </div>
+    </section>
+
+    <!-- Payment -->
+    <section class="payment-section">
+      <h2>Payment Method</h2>
+      <div class="payment-options">
+
+        <label class="payment-option payment-bkash" data-method="bkash">
+          <input type="radio" name="payment" value="bkash">
+          <div class="payment-header">
+            <div class="payment-radio"><div class="payment-radio-dot"></div></div>
+            <div class="payment-icon">bKash</div>
+            <div class="payment-info">
+              <h3>bKash Payment</h3>
+              <p>Send payment via bKash and enter your Transaction ID</p>
+            </div>
+          </div>
+          <div class="bkash-details">
+            <div class="bkash-steps">
+              <h4>How to pay with bKash</h4>
+              <div class="bkash-step">
+                <span class="bkash-step-num">1</span>
+                <span>Open your bKash app and go to "Send Money"</span>
+              </div>
+              <div class="bkash-step">
+                <span class="bkash-step-num">2</span>
+                <span>Send the total amount to our bKash number below</span>
+              </div>
+              <div class="bkash-step">
+                <span class="bkash-step-num">3</span>
+                <span>Copy the Transaction ID and paste it below</span>
+              </div>
+            </div>
+            <div class="bkash-number">
+              <span>01XXXXXXXXX</span>
+              <small>Purr Pantry - Personal</small>
+            </div>
+            <div class="bkash-trx-field">
+              <label for="bkash-trx">bKash Transaction ID</label>
+              <input type="text" id="bkash-trx" placeholder="e.g. BKP12345XY">
+            </div>
+          </div>
+        </label>
+
+        <label class="payment-option payment-cod" data-method="cod">
+          <input type="radio" name="payment" value="cod">
+          <div class="payment-header">
+            <div class="payment-radio"><div class="payment-radio-dot"></div></div>
+            <div class="payment-icon">💵</div>
+            <div class="payment-info">
+              <h3>Cash on Delivery</h3>
+              <p>Pay in cash when your order arrives at your door</p>
+            </div>
+          </div>
+          <div class="cod-details">
+            <div class="cod-info-box">
+              <span class="cod-icon">📦</span>
+              <p>Pay the delivery person in cash when you receive your order. Please have the exact amount ready if possible. Our delivery partner will provide a receipt.</p>
+            </div>
+          </div>
+        </label>
+
+      </div>
+    </section>
+
+    <!-- Place Order -->
+    <section class="place-order-section">
+      <button class="btn-place-order" id="placeOrderBtn" disabled>
+        Place Order &rarr;
+      </button>
+      <div class="order-note">Your order will be confirmed via phone call.</div>
+    </section>
+
+  </div>
+
+  <!-- Right column: Order Summary (sticky) -->
+  <div class="order-sidebar">
+    <div class="summary-card">
+      <h2>Order Summary</h2>
+      <div class="summary-items" id="summaryItems">
+        <div class="summary-empty">Add some meals to get started!</div>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-total">
+        <span class="label">Total</span>
+        <span class="amount" id="summaryTotal">৳0</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Success overlay -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <span class="success-icon">😻</span>
+    <h2>Order Placed!</h2>
+    <p>Thanks for choosing Purr Pantry! We'll call you shortly to confirm your order. Your cat is going to love this.</p>
+    <a href="variation-3-retro.html" class="success-btn">Back to Home</a>
+  </div>
+</div>
+
+<footer>
+  <a href="variation-3-retro.html" class="logo">
+    <span class="logo-paw">🐾</span>
+    Purr Pantry
+  </a>
+  <span>&copy; 2026 Purr Pantry. Made with love for cats.</span>
+</footer>
+
+<script>
+(function() {
+  // State - each product tracks qty, selected size, and prices per size
+  const cart = {
+    complete: { name: 'Purr Pantry Complete', icon: '🍲', qty: 0, size: '500', prices: { '500': 250, '1000': 450 } },
+    chicken:  { name: 'Pure Chicken',         icon: '🍗', qty: 0, size: '500', prices: { '500': 220, '1000': 420 } },
+    ocean:    { name: 'Ocean Feast',          icon: '🐟', qty: 0, size: '500', prices: { '500': 260, '1000': 480 } },
+  };
+
+  let selectedPayment = null;
+
+  // DOM refs
+  const productCards = document.querySelectorAll('.product-card');
+  const summaryItems = document.getElementById('summaryItems');
+  const summaryTotal = document.getElementById('summaryTotal');
+  const placeOrderBtn = document.getElementById('placeOrderBtn');
+  const paymentOptions = document.querySelectorAll('.payment-option');
+  const successOverlay = document.getElementById('successOverlay');
+
+  // Get current price for a cart item
+  function getPrice(item) {
+    return item.prices[item.size];
+  }
+
+  // Size label for display
+  function sizeLabel(size) {
+    return size === '500' ? '500g' : '1kg';
+  }
+
+  // Setup each product card
+  productCards.forEach(card => {
+    const product = card.dataset.product;
+    const minusBtn = card.querySelector('.qty-minus');
+    const plusBtn = card.querySelector('.qty-plus');
+    const qtyDisplay = card.querySelector('.qty-value');
+    const lineTotal = card.querySelector('.line-total');
+    const priceDisplay = card.querySelector('.product-price');
+    const sizeButtons = card.querySelectorAll('.size-option');
+
+    // Size toggle
+    sizeButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        sizeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        cart[product].size = btn.dataset.size;
+
+        // Update displayed price with a bounce
+        const price = getPrice(cart[product]);
+        priceDisplay.textContent = `৳${price}`;
+        priceDisplay.classList.add('price-bump');
+        setTimeout(() => priceDisplay.classList.remove('price-bump'), 200);
+
+        // Update line total and summary
+        updateLineTotal(cart[product], lineTotal);
+        updateSummary();
+      });
+    });
+
+    // Quantity minus
+    minusBtn.addEventListener('click', () => {
+      if (cart[product].qty > 0) {
+        cart[product].qty--;
+        qtyDisplay.textContent = cart[product].qty;
+        updateLineTotal(cart[product], lineTotal);
+        updateSummary();
+      }
+    });
+
+    // Quantity plus
+    plusBtn.addEventListener('click', () => {
+      cart[product].qty++;
+      qtyDisplay.textContent = cart[product].qty;
+      updateLineTotal(cart[product], lineTotal);
+      updateSummary();
+
+      // Bounce effect
+      qtyDisplay.style.transform = 'scale(1.3)';
+      setTimeout(() => { qtyDisplay.style.transform = 'scale(1)'; }, 150);
+    });
+  });
+
+  function updateLineTotal(item, el) {
+    if (item.qty > 0) {
+      const total = item.qty * getPrice(item);
+      el.textContent = `= ৳${total.toLocaleString()}`;
+    } else {
+      el.textContent = '';
+    }
+  }
+
+  function updateSummary() {
+    let html = '';
+    let total = 0;
+    let hasItems = false;
+
+    Object.keys(cart).forEach(key => {
+      const item = cart[key];
+      if (item.qty > 0) {
+        hasItems = true;
+        const linePrice = item.qty * getPrice(item);
+        total += linePrice;
+        html += `
+          <div class="summary-line">
+            <span class="item-name">
+              ${item.icon} ${item.name}
+              <span class="item-qty">${sizeLabel(item.size)} &times; ${item.qty}</span>
+            </span>
+            <span class="item-price">৳${linePrice.toLocaleString()}</span>
+          </div>
+        `;
+      }
+    });
+
+    if (!hasItems) {
+      html = '<div class="summary-empty">Add some meals to get started!</div>';
+    }
+
+    summaryItems.innerHTML = html;
+    summaryTotal.textContent = `৳${total.toLocaleString()}`;
+    validateForm();
+  }
+
+  // Payment selection
+  paymentOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      paymentOptions.forEach(o => o.classList.remove('selected'));
+      option.classList.add('selected');
+      option.querySelector('input[type="radio"]').checked = true;
+      selectedPayment = option.dataset.method;
+      validateForm();
+    });
+  });
+
+  // Form validation
+  function validateForm() {
+    const hasItems = Object.values(cart).some(i => i.qty > 0);
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const hasBkashTrx = selectedPayment === 'bkash' ? document.getElementById('bkash-trx').value.trim() : true;
+
+    const isValid = hasItems && name && phone && address && selectedPayment && hasBkashTrx;
+    placeOrderBtn.disabled = !isValid;
+  }
+
+  // Listen for input changes
+  ['name', 'phone', 'address', 'bkash-trx'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', validateForm);
+    }
+  });
+
+  // Place order
+  placeOrderBtn.addEventListener('click', () => {
+    if (placeOrderBtn.disabled) return;
+
+    const hasItems = Object.values(cart).some(i => i.qty > 0);
+    if (!hasItems) {
+      const productsSection = document.querySelector('.products-section');
+      productsSection.classList.add('shake');
+      setTimeout(() => productsSection.classList.remove('shake'), 500);
+      return;
+    }
+
+    successOverlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Close success overlay
+  successOverlay.addEventListener('click', (e) => {
+    if (e.target === successOverlay) {
+      successOverlay.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

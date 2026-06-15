@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purr Pantry - Homemade Cat Food</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500;700&family=Sora:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --snow: #FAFBF9;
+    --rice: #F5F3EE;
+    --ink: #1C1C1C;
+    --stone: #6E6E6E;
+    --vermillion: #D14836;
+    --blush: #F0C8C0;
+    --matcha: #7BA05B;
+    --matcha-soft: #C5D6A8;
+    --washi: #EDE8DE;
+    --indigo: #2C4A7C;
+    --gold: #C9A96E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--snow);
+    color: var(--ink);
+    overflow-x: hidden;
+    font-weight: 300;
+  }
+
+  /* Washi paper texture overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250, 251, 249, 0.92);
+    backdrop-filter: blur(15px);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .logo-en {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+  }
+
+  .logo-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.7rem;
+    color: var(--vermillion);
+    writing-mode: vertical-rl;
+    letter-spacing: 0.2em;
+    line-height: 1;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  nav a:hover { color: var(--vermillion); }
+
+  .nav-order {
+    background: var(--ink);
+    color: var(--snow) !important;
+    padding: 0.55rem 1.6rem;
+    transition: all 0.3s !important;
+  }
+
+  .nav-order:hover {
+    background: var(--vermillion) !important;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Enso circle behind hero */
+  .enso {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px;
+    height: 550px;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    opacity: 0.04;
+  }
+
+  .enso-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    border: 1px solid var(--vermillion);
+    border-radius: 50%;
+    opacity: 0.06;
+  }
+
+  /* Decorative kanji */
+  .deco-kanji {
+    position: absolute;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15rem;
+    font-weight: 200;
+    opacity: 0.025;
+    color: var(--ink);
+    user-select: none;
+  }
+
+  .kanji-left {
+    top: 15%;
+    left: 5%;
+    transform: rotate(-10deg);
+  }
+
+  .kanji-right {
+    bottom: 10%;
+    right: 5%;
+    transform: rotate(5deg);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+  }
+
+  .hero-mono {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeIn 0.8s 0.3s forwards;
+  }
+
+  .hero-mono::before, .hero-mono::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--stone);
+    opacity: 0.3;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-jp-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    color: var(--vermillion);
+    letter-spacing: 0.5em;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--stone);
+    max-width: 480px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .hero-btns {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  .btn-zen {
+    padding: 0.85rem 2.5rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s;
+  }
+
+  .btn-dark {
+    background: var(--ink);
+    color: var(--snow);
+  }
+
+  .btn-dark:hover {
+    background: var(--vermillion);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+
+  .btn-ghost:hover {
+    background: var(--ink);
+    color: var(--snow);
+  }
+
+  /* Seal/hanko decoration */
+  .hanko {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--vermillion);
+    color: var(--vermillion);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    position: absolute;
+    right: 8%;
+    top: 20%;
+    transform: rotate(15deg);
+    opacity: 0.6;
+  }
+
+  /* Divider with dot */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+  }
+
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    max-width: 200px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--stone), transparent);
+    opacity: 0.15;
+  }
+
+  .section-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--vermillion);
+    border-radius: 50%;
+    margin: 0 1.5rem;
+  }
+
+  /* Values */
+  .values {
+    padding: 4rem 4rem 6rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .values-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-overline {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--vermillion);
+    margin-bottom: 0.8rem;
+  }
+
+  .values-header h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  .value-card {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: var(--rice);
+    border-radius: 4px;
+    position: relative;
+    transition: transform 0.4s;
+  }
+
+  .value-card:hover { transform: translateY(-5px); }
+
+  .value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background: var(--vermillion);
+  }
+
+  .value-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.2rem;
+    margin-top: 0.5rem;
+  }
+
+  .value-card h4 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 0.6rem;
+  }
+
+  .value-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.7rem;
+    color: var(--vermillion);
+    letter-spacing: 0.3em;
+    margin-bottom: 0.8rem;
+  }
+
+  .value-card p {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--stone);
+  }
+
+  /* Menu */
+  .menu {
+    padding: 6rem 4rem;
+    background: var(--washi);
+    position: relative;
+  }
+
+  .menu-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .menu-header h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+
+  .menu-items {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .menu-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(28, 28, 28, 0.08);
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+
+  .menu-item:hover { transform: translateX(8px); }
+
+  .menu-item:last-child { border-bottom: none; }
+
+  .menu-item-icon {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  .menu-item-info h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+  }
+
+  .menu-item-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.7rem;
+    color: var(--vermillion);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.4rem;
+  }
+
+  .menu-item-info p {
+    font-size: 0.8rem;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+
+  .menu-item-right {
+    text-align: right;
+  }
+
+  .menu-price {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .menu-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--vermillion);
+    font-weight: 500;
+  }
+
+  /* Process */
+  .process {
+    padding: 6rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .process-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .process-header h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+
+  .process-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    position: relative;
+  }
+
+  .process-flow::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 1px;
+    background: linear-gradient(to right, var(--vermillion), var(--matcha));
+    opacity: 0.2;
+  }
+
+  .process-step {
+    text-align: center;
+    position: relative;
+  }
+
+  .step-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--rice);
+    border: 1px solid rgba(28, 28, 28, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+    font-size: 2rem;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+  }
+
+  .process-step:hover .step-circle {
+    border-color: var(--vermillion);
+    transform: scale(1.05);
+  }
+
+  .process-step h4 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+  }
+
+  .process-step p {
+    font-size: 0.75rem;
+    color: var(--stone);
+    line-height: 1.6;
+    max-width: 160px;
+    margin: 0 auto;
+  }
+
+  /* Testimonial */
+  .testimonial {
+    padding: 6rem 4rem;
+    background: var(--ink);
+    color: var(--snow);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    border: 1px solid rgba(250, 251, 249, 0.03);
+    border-radius: 50%;
+  }
+
+  .testi-overline {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--blush);
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .testi-quote {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 650px;
+    margin: 0 auto 2rem;
+    font-style: italic;
+    position: relative;
+  }
+
+  .testi-attr {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    position: relative;
+  }
+
+  /* CTA */
+  .cta {
+    padding: 8rem 4rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .cta-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.8rem;
+    color: var(--vermillion);
+    letter-spacing: 0.4em;
+    margin-bottom: 1rem;
+  }
+
+  .cta h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta p {
+    font-size: 0.9rem;
+    color: var(--stone);
+    margin-bottom: 2.5rem;
+  }
+
+  /* Footer */
+  footer {
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(28, 28, 28, 0.06);
+  }
+
+  footer .logo-en {
+    font-size: 1rem;
+  }
+
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-size: 0.7rem;
+    color: var(--stone);
+    letter-spacing: 0.08em;
+  }
+
+  .footer-hanko {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid var(--vermillion);
+    color: var(--vermillion);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <span class="logo-en">Purr Pantry</span>
+    <span class="logo-jp">猫食堂</span>
+  </div>
+  <ul>
+    <li><a href="#values">Philosophy</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#cta" class="nav-order">Order</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="enso"></div>
+  <div class="enso-inner"></div>
+  <div class="deco-kanji kanji-left">猫</div>
+  <div class="deco-kanji kanji-right">食</div>
+  <div class="hanko">猫</div>
+
+  <div class="hero-content">
+    <div class="hero-mono">Homemade Cat Food</div>
+    <h1>Honest food, honestly made</h1>
+    <div class="hero-jp-title">丁寧に作った猫ごはん</div>
+    <p>Carefully prepared meals made from real, whole ingredients. Balanced by veterinary nutritionists. Delivered fresh to your door.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-zen btn-dark">View Menu</a>
+      <a href="#values" class="btn-zen btn-ghost">Our Way</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">
+  <div class="section-dot"></div>
+</div>
+
+<section class="values" id="values">
+  <div class="values-header">
+    <div class="section-overline reveal">Our Principles</div>
+    <h2 class="reveal">The way we make food</h2>
+  </div>
+  <div class="values-grid">
+    <div class="value-card reveal">
+      <div class="value-icon">🌾</div>
+      <h4>Whole Ingredients</h4>
+      <div class="value-jp">素材そのまま</div>
+      <p>Every ingredient is recognizable. No by-products, no fillers, no artificial preservatives. Just real food.</p>
+    </div>
+    <div class="value-card reveal">
+      <div class="value-icon">👩‍🔬</div>
+      <h4>Balanced Nutrition</h4>
+      <div class="value-jp">栄養バランス</div>
+      <p>Formulated by board-certified veterinary nutritionists to exceed AAFCO standards for all life stages.</p>
+    </div>
+    <div class="value-card reveal">
+      <div class="value-icon">🍳</div>
+      <h4>Small Batch</h4>
+      <div class="value-jp">少量生産</div>
+      <p>Each meal is hand-prepared in small batches. We cook the day before delivery to ensure freshness.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">
+  <div class="section-dot"></div>
+</div>
+
+<section class="menu" id="menu">
+  <div class="menu-header">
+    <div class="section-overline reveal">The Menu</div>
+    <h2 class="reveal">Seasonal Recipes</h2>
+  </div>
+  <div class="menu-items">
+    <div class="menu-item reveal">
+      <div class="menu-item-icon">🍗</div>
+      <div class="menu-item-info">
+        <h3>Farmhouse Chicken</h3>
+        <div class="menu-item-jp">農場チキン</div>
+        <p>Free-range chicken, sweet potato, spinach, salmon oil</p>
+      </div>
+      <div class="menu-item-right">
+        <span class="menu-price">$8.50</span>
+        <span class="menu-tag">Popular</span>
+      </div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-icon">🐟</div>
+      <div class="menu-item-info">
+        <h3>Wild Salmon</h3>
+        <div class="menu-item-jp">天然サーモン</div>
+        <p>Wild-caught salmon, pumpkin, green peas, flaxseed</p>
+      </div>
+      <div class="menu-item-right">
+        <span class="menu-price">$9.75</span>
+        <span class="menu-tag">Seasonal</span>
+      </div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-icon">🥩</div>
+      <div class="menu-item-info">
+        <h3>Grass-Fed Beef</h3>
+        <div class="menu-item-jp">牧草牛</div>
+        <p>Grass-fed beef, liver, carrots, blueberry, bone broth</p>
+      </div>
+      <div class="menu-item-right">
+        <span class="menu-price">$9.25</span>
+        <span class="menu-tag">Hearty</span>
+      </div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-icon">🦃</div>
+      <div class="menu-item-info">
+        <h3>Heritage Turkey</h3>
+        <div class="menu-item-jp">七面鳥</div>
+        <p>Heritage turkey, cranberry, kale, pumpkin seed oil</p>
+      </div>
+      <div class="menu-item-right">
+        <span class="menu-price">$8.75</span>
+        <span class="menu-tag">New</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">
+  <div class="section-dot"></div>
+</div>
+
+<section class="process" id="process">
+  <div class="process-header">
+    <div class="section-overline reveal">The Process</div>
+    <h2 class="reveal">From our kitchen to yours</h2>
+  </div>
+  <div class="process-flow">
+    <div class="process-step reveal">
+      <div class="step-circle">📋</div>
+      <h4>Choose</h4>
+      <p>Select your recipes and delivery schedule</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-circle">🔪</div>
+      <h4>Prepare</h4>
+      <p>Cooked fresh in small batches each morning</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-circle">📦</div>
+      <h4>Deliver</h4>
+      <p>Packed cold in eco-friendly insulated boxes</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-circle">😻</div>
+      <h4>Enjoy</h4>
+      <p>Thaw, serve, and watch them purr</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="testi-overline reveal">What They Say</div>
+  <blockquote class="testi-quote reveal">
+    "We tried every premium brand for our cat Mochi. Nothing worked until Purr Pantry. The difference in her energy and coat was visible within two weeks. This is how cat food should be."
+  </blockquote>
+  <div class="testi-attr reveal">Sarah K. &mdash; Portland, Oregon</div>
+</section>
+
+<section class="cta" id="cta">
+  <div class="cta-jp reveal">はじめてのお試し</div>
+  <h2 class="reveal">Begin with a trial box</h2>
+  <p class="reveal">Three recipes. Free shipping. Full refund guarantee.</p>
+  <a href="#" class="btn-zen btn-dark reveal">Order Trial Box &mdash; $29</a>
+</section>
+
+<footer>
+  <div class="logo">
+    <span class="logo-en">Purr Pantry</span>
+  </div>
+  <div class="footer-right">
+    <span>&copy; 2026 Purr Pantry</span>
+    <div class="footer-hanko">猫</div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

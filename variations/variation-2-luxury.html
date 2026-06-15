@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PURR PANTRY - Artisan Cat Cuisine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --near-black: #141414;
+    --charcoal: #1E1E1E;
+    --gold: #C9A96E;
+    --gold-light: #D4B97A;
+    --gold-pale: #E8D5AA;
+    --cream: #F2EDE4;
+    --warm-white: #FAF8F5;
+    --muted: #6B6B6B;
+    --border: rgba(201, 169, 110, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--black);
+    color: var(--cream);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.8rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--cream);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    transition: opacity 0.4s, color 0.4s;
+  }
+
+  nav a:hover {
+    opacity: 1;
+    color: var(--gold);
+  }
+
+  .nav-cta {
+    border: 1px solid var(--gold);
+    padding: 0.55rem 1.8rem;
+    color: var(--gold) !important;
+    opacity: 1 !important;
+    transition: all 0.4s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold) !important;
+    color: var(--black) !important;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(201, 169, 110, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(201, 169, 110, 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(201, 169, 110, 0.04) 0%, transparent 50%);
+  }
+
+  /* Decorative gold lines */
+  .hero-lines {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .hero-lines::before, .hero-lines::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    opacity: 0.15;
+  }
+
+  .hero-lines::before { left: 15%; top: 10%; animation: lineFloat 6s ease-in-out infinite; }
+  .hero-lines::after { right: 15%; bottom: 10%; animation: lineFloat 6s ease-in-out infinite reverse; }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+  }
+
+  .hero-overline {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 0.3s forwards;
+  }
+
+  .hero-overline::before, .hero-overline::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem;
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+
+  .hero h1 em {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--cream);
+    opacity: 0;
+    max-width: 520px;
+    margin: 0 auto 3rem;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--black);
+    padding: 1rem 3rem;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s;
+  }
+
+  .btn-gold:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(201, 169, 110, 0.25);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--cream);
+    padding: 1rem 3rem;
+    border: 1px solid rgba(242, 237, 228, 0.2);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* Marquee */
+  .marquee {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 4rem;
+    animation: marquee 30s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .marquee-item::after {
+    content: '\2726';
+    color: var(--gold);
+    opacity: 0.4;
+  }
+
+  /* Philosophy section */
+  .philosophy {
+    padding: 10rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+    align-items: center;
+    position: relative;
+  }
+
+  .philosophy::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    bottom: 10%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    opacity: 0.1;
+  }
+
+  .phil-left h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+
+  .phil-left h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .phil-left p {
+    font-size: 0.9rem;
+    line-height: 2;
+    font-weight: 300;
+    color: var(--cream);
+    opacity: 0.6;
+    max-width: 440px;
+  }
+
+  .phil-right {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .phil-feature {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    transition: transform 0.3s;
+  }
+
+  .phil-feature:hover { transform: translateX(10px); }
+
+  .phil-feature-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  .phil-feature h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .phil-feature p {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    font-weight: 300;
+    opacity: 0.5;
+  }
+
+  /* Collection */
+  .collection {
+    padding: 8rem 5rem;
+    background: var(--near-black);
+    position: relative;
+  }
+
+  .collection-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .collection-header .overline {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .collection-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+  }
+
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .dish-card {
+    background: var(--charcoal);
+    border: 1px solid var(--border);
+    padding: 3rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s;
+    cursor: pointer;
+  }
+
+  .dish-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .dish-card:hover::before { opacity: 1; }
+  .dish-card:hover {
+    border-color: rgba(201, 169, 110, 0.3);
+    transform: translateY(-5px);
+  }
+
+  .dish-icon {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    display: block;
+  }
+
+  .dish-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .dish-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+
+  .dish-card p {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    font-weight: 300;
+    opacity: 0.5;
+    margin-bottom: 2rem;
+  }
+
+  .dish-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .dish-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  .dish-price small {
+    font-size: 0.7rem;
+    font-family: 'Montserrat', sans-serif;
+    opacity: 0.5;
+    color: var(--cream);
+  }
+
+  .dish-btn {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: none;
+    border: 1px solid var(--gold);
+    padding: 0.6rem 1.5rem;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s;
+  }
+
+  .dish-btn:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  /* Process */
+  .process {
+    padding: 10rem 5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .process-header {
+    text-align: center;
+    margin-bottom: 6rem;
+  }
+
+  .process-header .overline {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .process-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+  }
+
+  .process-timeline {
+    position: relative;
+  }
+
+  .process-timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), rgba(201, 169, 110, 0.1));
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    align-items: start;
+  }
+
+  .timeline-dot {
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    background: var(--black);
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.6rem;
+    margin-top: 0.8rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.8;
+    opacity: 0.5;
+    max-width: 500px;
+  }
+
+  /* Testimonial */
+  .testimonial-section {
+    padding: 8rem 5rem;
+    background: var(--near-black);
+    text-align: center;
+    position: relative;
+  }
+
+  .testimonial-section::before {
+    content: '\201C';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20rem;
+    color: var(--gold);
+    opacity: 0.03;
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1;
+  }
+
+  .testimonial-section .overline {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+  }
+
+  .testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    max-width: 750px;
+    margin: 0 auto 3rem;
+    position: relative;
+  }
+
+  .testimonial-attr {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  /* CTA */
+  .final-cta {
+    padding: 10rem 5rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(201, 169, 110, 0.06), transparent 70%);
+  }
+
+  .final-cta h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .final-cta h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .final-cta p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    opacity: 0.5;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .final-cta .btn-gold { position: relative; }
+
+  /* Footer */
+  footer {
+    padding: 4rem 5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer .logo { font-size: 1.1rem; }
+
+  footer nav {
+    position: static;
+    background: none;
+    padding: 0;
+    border: none;
+    backdrop-filter: none;
+  }
+
+  footer nav ul { gap: 2rem; }
+
+  footer .copyright {
+    font-size: 0.7rem;
+    opacity: 0.3;
+    letter-spacing: 0.1em;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes lineFloat {
+    0%, 100% { opacity: 0.15; transform: translateY(0); }
+    50% { opacity: 0.05; transform: translateY(30px); }
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Purr Pantry</div>
+  <ul>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#cta" class="nav-cta">Begin</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-overline">Artisan Feline Cuisine</div>
+    <h1>Nourishment, <em>elevated.</em></h1>
+    <p class="hero-sub">Hand-prepared meals crafted from the finest human-grade ingredients. For the discerning cat who accepts nothing less than extraordinary.</p>
+    <div class="hero-actions">
+      <a href="#collection" class="btn-gold">Discover the Collection</a>
+      <a href="#philosophy" class="btn-outline">Our Philosophy</a>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Human-Grade Ingredients</span>
+    <span class="marquee-item">Vet-Formulated Nutrition</span>
+    <span class="marquee-item">Small Batch Crafted</span>
+    <span class="marquee-item">Sustainably Sourced</span>
+    <span class="marquee-item">Free-Range Proteins</span>
+    <span class="marquee-item">No Preservatives</span>
+    <span class="marquee-item">Human-Grade Ingredients</span>
+    <span class="marquee-item">Vet-Formulated Nutrition</span>
+    <span class="marquee-item">Small Batch Crafted</span>
+    <span class="marquee-item">Sustainably Sourced</span>
+    <span class="marquee-item">Free-Range Proteins</span>
+    <span class="marquee-item">No Preservatives</span>
+  </div>
+</div>
+
+<section class="philosophy" id="philosophy">
+  <div class="phil-left reveal">
+    <h2>A return to <em>honest</em> feeding</h2>
+    <p>We believe cats deserve food made with the same intention and care as a home-cooked meal. Every recipe is a deliberate act of nourishment - no shortcuts, no compromises, no ingredients we can't pronounce.</p>
+  </div>
+  <div class="phil-right">
+    <div class="phil-feature reveal">
+      <div class="phil-feature-num">01</div>
+      <div>
+        <h4>Sourced with Intention</h4>
+        <p>Every protein is traceable to its origin. We partner directly with small farms committed to ethical, sustainable practices.</p>
+      </div>
+    </div>
+    <div class="phil-feature reveal">
+      <div class="phil-feature-num">02</div>
+      <div>
+        <h4>Formulated by Science</h4>
+        <p>Each recipe exceeds AAFCO standards, developed in collaboration with board-certified veterinary nutritionists.</p>
+      </div>
+    </div>
+    <div class="phil-feature reveal">
+      <div class="phil-feature-num">03</div>
+      <div>
+        <h4>Prepared by Hand</h4>
+        <p>Small-batch cooking preserves nutritional integrity. We never mass-produce - your order is made for your cat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="collection" id="collection">
+  <div class="collection-header">
+    <div class="overline reveal">The Collection</div>
+    <h2 class="reveal">Curated Recipes</h2>
+  </div>
+  <div class="collection-grid">
+    <div class="dish-card reveal">
+      <span class="dish-icon">🍗</span>
+      <div class="dish-label">Signature</div>
+      <h3>Heritage Chicken</h3>
+      <p>Free-range chicken breast with organic sweet potato, wilted spinach, and cold-pressed salmon oil.</p>
+      <div class="dish-footer">
+        <span class="dish-price">$12 <small>/portion</small></span>
+        <button class="dish-btn">Select</button>
+      </div>
+    </div>
+    <div class="dish-card reveal">
+      <span class="dish-icon">🐟</span>
+      <div class="dish-label">Reserve</div>
+      <h3>Pacific Salmon</h3>
+      <p>Wild-caught sockeye salmon with butternut squash, green peas, and golden flaxseed.</p>
+      <div class="dish-footer">
+        <span class="dish-price">$14 <small>/portion</small></span>
+        <button class="dish-btn">Select</button>
+      </div>
+    </div>
+    <div class="dish-card reveal">
+      <span class="dish-icon">🥩</span>
+      <div class="dish-label">Premier</div>
+      <h3>Wagyu Beef</h3>
+      <p>A5-grade wagyu with organic liver, roasted carrots, blueberry, and mineral-rich bone broth.</p>
+      <div class="dish-footer">
+        <span class="dish-price">$18 <small>/portion</small></span>
+        <button class="dish-btn">Select</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="process-header">
+    <div class="overline reveal">The Experience</div>
+    <h2 class="reveal">From Kitchen to Bowl</h2>
+  </div>
+  <div class="process-timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-dot">I</div>
+      <div class="timeline-content">
+        <h4>Consultation</h4>
+        <p>Share your cat's preferences, age, health needs, and dietary sensitivities. We design a personalized meal plan.</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot">II</div>
+      <div class="timeline-content">
+        <h4>Preparation</h4>
+        <p>Your meals are hand-prepared in our licensed kitchen using ingredients sourced that morning from local purveyors.</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot">III</div>
+      <div class="timeline-content">
+        <h4>Delivery</h4>
+        <p>Flash-frozen at peak freshness and delivered to your door in temperature-controlled, sustainable packaging.</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot">IV</div>
+      <div class="timeline-content">
+        <h4>Delight</h4>
+        <p>Thaw, serve, and witness the difference that real, thoughtfully prepared food makes in your cat's life.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial-section">
+  <div class="overline reveal">Testimonial</div>
+  <blockquote class="testimonial-quote reveal">
+    I've tried every premium cat food on the market. Nothing comes close to Purr Pantry. The quality is evident from the moment you open the packaging - this is real food, prepared with genuine care.
+  </blockquote>
+  <div class="testimonial-attr reveal">Dr. Catherine Wells, DVM - Feline Nutrition Specialist</div>
+</section>
+
+<section class="final-cta" id="cta">
+  <h2 class="reveal">Begin the <em>Purr Pantry</em><br>experience</h2>
+  <p class="reveal">Introductory tasting collection. Complimentary delivery.</p>
+  <a href="#" class="btn-gold reveal">Order the Tasting Box - $45</a>
+</section>
+
+<footer>
+  <div class="logo">Purr Pantry</div>
+  <span class="copyright">&copy; 2026 Purr Pantry. All rights reserved.</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purr Pantry - Homemade Cat Food</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral: #FF6B5A;
+    --coral-dark: #E85A4A;
+    --sunshine: #FFD23F;
+    --mint: #7ECFB3;
+    --mint-dark: #5BB89A;
+    --lavender: #B8A9E8;
+    --sky: #7EB8E0;
+    --cream: #FFF8F0;
+    --peach: #FFE5D4;
+    --charcoal: #2D2A32;
+    --brown: #4A3728;
+    --soft-pink: #FFD1CA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* Fun wavy separator */
+  .wave-sep {
+    width: 100%;
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wave-sep svg {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 60px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+    border: 2px solid var(--peach);
+  }
+
+  .logo {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--coral);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .logo-paw {
+    font-size: 1.1rem;
+    display: inline-block;
+    animation: pawWiggle 2s ease-in-out infinite;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 0.3rem;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--charcoal);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    transition: all 0.3s;
+  }
+
+  nav a:hover {
+    background: var(--peach);
+    color: var(--coral);
+  }
+
+  .nav-cta {
+    background: var(--coral) !important;
+    color: white !important;
+    font-weight: 600;
+  }
+
+  .nav-cta:hover {
+    background: var(--coral-dark) !important;
+    transform: scale(1.05);
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 10% 90%, var(--soft-pink) 0%, transparent 30%),
+      radial-gradient(circle at 90% 20%, rgba(126, 207, 179, 0.2) 0%, transparent 30%),
+      var(--cream);
+  }
+
+  /* Floating decorative shapes */
+  .deco-shape {
+    position: absolute;
+    border-radius: 50%;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .deco-1 {
+    width: 80px; height: 80px;
+    background: var(--sunshine);
+    opacity: 0.3;
+    top: 15%; right: 10%;
+    animation-delay: 0s;
+  }
+
+  .deco-2 {
+    width: 50px; height: 50px;
+    background: var(--mint);
+    opacity: 0.4;
+    top: 70%; right: 25%;
+    animation-delay: 1s;
+  }
+
+  .deco-3 {
+    width: 30px; height: 30px;
+    background: var(--lavender);
+    opacity: 0.4;
+    top: 25%; right: 35%;
+    animation-delay: 2s;
+  }
+
+  .deco-4 {
+    width: 120px; height: 120px;
+    background: var(--coral);
+    opacity: 0.08;
+    bottom: 10%; left: 5%;
+    animation-delay: 1.5s;
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--sunshine);
+    color: var(--brown);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    transform: rotate(-2deg);
+    opacity: 0;
+    animation: popIn 0.5s 0.2s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 4.5rem;
+    line-height: 1.1;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: slideIn 0.6s 0.4s forwards;
+  }
+
+  .hero h1 .highlight {
+    color: var(--coral);
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero h1 .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: var(--sunshine);
+    opacity: 0.4;
+    z-index: -1;
+    border-radius: 4px;
+    transform: skewX(-5deg);
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+    opacity: 0.7;
+    margin-bottom: 2rem;
+    max-width: 440px;
+    animation: slideIn 0.6s 0.6s forwards;
+    opacity: 0;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: slideIn 0.6s 0.8s forwards;
+  }
+
+  .btn-fun {
+    padding: 0.9rem 2rem;
+    border-radius: 60px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+  }
+
+  .btn-coral {
+    background: var(--coral);
+    color: white;
+    box-shadow: 0 6px 20px rgba(255, 107, 90, 0.3);
+  }
+
+  .btn-coral:hover {
+    background: var(--coral-dark);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(255, 107, 90, 0.4);
+  }
+
+  .btn-mint {
+    background: var(--mint);
+    color: var(--brown);
+  }
+
+  .btn-mint:hover {
+    background: var(--mint-dark);
+    transform: translateY(-3px);
+  }
+
+  .hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-bowl {
+    width: 420px;
+    height: 420px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    position: relative;
+    animation: bowlFloat 3s ease-in-out infinite;
+    border: 4px dashed var(--peach);
+  }
+
+  .hero-bowl-inner {
+    font-size: 10rem;
+    animation: catBlink 4s ease infinite;
+  }
+
+  .bowl-orbit {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border: 2px solid var(--peach);
+  }
+
+  .orbit-1 { top: -10px; right: 40px; animation: orbit1 5s ease-in-out infinite; }
+  .orbit-2 { bottom: 20px; left: -20px; animation: orbit2 5s ease-in-out infinite; }
+  .orbit-3 { bottom: -10px; right: 60px; animation: orbit3 5s ease-in-out infinite; }
+  .orbit-4 { top: 40px; left: -10px; animation: orbit1 5s ease-in-out infinite reverse; }
+
+  /* Features */
+  .features {
+    padding: 6rem 4rem;
+    background: var(--coral);
+    color: white;
+    position: relative;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .feature-card {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: rgba(255,255,255,0.12);
+    border-radius: 24px;
+    border: 2px solid rgba(255,255,255,0.15);
+    transition: transform 0.3s, background 0.3s;
+    cursor: default;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-8px) rotate(-1deg);
+    background: rgba(255,255,255,0.2);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .feature-card h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    font-size: 0.82rem;
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+
+  /* Menu */
+  .menu {
+    padding: 6rem 4rem;
+    background: var(--cream);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-tag {
+    display: inline-block;
+    background: var(--sunshine);
+    color: var(--brown);
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    transform: rotate(-1deg);
+  }
+
+  .section-header h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 3rem;
+    color: var(--charcoal);
+  }
+
+  .menu-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .meal-card {
+    background: white;
+    border-radius: 28px;
+    overflow: hidden;
+    transition: transform 0.4s;
+    cursor: pointer;
+    border: 3px solid transparent;
+  }
+
+  .meal-card:hover {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+
+  .meal-card:nth-child(1) { border-color: var(--sunshine); }
+  .meal-card:nth-child(2) { border-color: var(--mint); }
+  .meal-card:nth-child(3) { border-color: var(--lavender); }
+
+  .meal-img {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    position: relative;
+  }
+
+  .meal-card:nth-child(1) .meal-img { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+  .meal-card:nth-child(2) .meal-img { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+  .meal-card:nth-child(3) .meal-img { background: linear-gradient(135deg, #E8EAF6, #D1C4E9); }
+
+  .meal-sticker {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--coral);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    transform: rotate(5deg);
+  }
+
+  .meal-info {
+    padding: 1.5rem;
+  }
+
+  .meal-info h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    color: var(--charcoal);
+  }
+
+  .meal-info p {
+    font-size: 0.85rem;
+    color: var(--charcoal);
+    opacity: 0.6;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
+
+  .meal-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .meal-price {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    color: var(--coral);
+    font-weight: 700;
+  }
+
+  .meal-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: var(--charcoal);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .meal-btn:hover {
+    background: var(--coral);
+    transform: rotate(90deg) scale(1.1);
+  }
+
+  /* How it works */
+  .how-it-works {
+    padding: 6rem 4rem;
+    background: var(--mint);
+    position: relative;
+  }
+
+  .how-it-works .section-header h2 { color: var(--brown); }
+  .how-it-works .section-tag { background: white; }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .step {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .step:hover { transform: translateY(-5px); }
+
+  .step-num {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--coral);
+    color: white;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .step-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  .step h4 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    color: var(--charcoal);
+  }
+
+  .step p {
+    font-size: 0.8rem;
+    color: var(--charcoal);
+    opacity: 0.6;
+    line-height: 1.5;
+  }
+
+  /* Reviews */
+  .reviews {
+    padding: 6rem 4rem;
+    background: var(--cream);
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .review-card {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .review-card:hover { transform: translateY(-5px); }
+
+  .review-stars {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .review-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+    margin-bottom: 1.2rem;
+  }
+
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .review-card:nth-child(1) .review-avatar { background: var(--soft-pink); }
+  .review-card:nth-child(2) .review-avatar { background: #D4E8D1; }
+  .review-card:nth-child(3) .review-avatar { background: #E0D6F0; }
+
+  .review-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .review-cat {
+    font-size: 0.75rem;
+    opacity: 0.5;
+  }
+
+  /* CTA */
+  .cta {
+    padding: 6rem 4rem;
+    background: var(--charcoal);
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta::before {
+    content: '🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾';
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    right: 0;
+    font-size: 2rem;
+    opacity: 0.05;
+    letter-spacing: 1rem;
+    white-space: nowrap;
+  }
+
+  .cta h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .cta h2 .highlight {
+    color: var(--sunshine);
+  }
+
+  .cta p {
+    font-size: 1rem;
+    opacity: 0.6;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .cta-price {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--coral);
+    padding: 1rem 2.5rem;
+    border-radius: 60px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .cta-price:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 40px rgba(255, 107, 90, 0.4);
+  }
+
+  /* Footer */
+  footer {
+    padding: 3rem 4rem;
+    background: var(--charcoal);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+  }
+
+  footer .logo { color: var(--coral); }
+
+  footer span {
+    font-size: 0.8rem;
+    opacity: 0.3;
+  }
+
+  /* Animations */
+  @keyframes pawWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: rotate(-2deg) scale(0.8); }
+    to { opacity: 1; transform: rotate(-2deg) scale(1); }
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes bowlFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+  }
+
+  @keyframes catBlink {
+    0%, 45%, 55%, 100% { opacity: 1; }
+    50% { opacity: 0.7; transform: scaleY(0.95); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes orbit1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-10px, -15px); }
+  }
+
+  @keyframes orbit2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(15px, -10px); }
+  }
+
+  @keyframes orbit3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-8px, 12px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <span class="logo-paw">🐾</span>
+    Purr Pantry
+  </div>
+  <ul>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="checkout.html" class="nav-cta">Order Now</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="deco-shape deco-1"></div>
+  <div class="deco-shape deco-2"></div>
+  <div class="deco-shape deco-3"></div>
+  <div class="deco-shape deco-4"></div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">New! Free trial box</div>
+      <h1>Cat food that's <span class="highlight">actually</span> food</h1>
+      <p>Homemade, vet-approved meals made from real ingredients you can see and pronounce. Your cat will literally come running.</p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-fun btn-coral">See the Menu</a>
+        <a href="#how" class="btn-fun btn-mint">How It Works</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-bowl">
+        <div class="hero-bowl-inner">😺</div>
+        <div class="bowl-orbit orbit-1">🍗</div>
+        <div class="bowl-orbit orbit-2">🐟</div>
+        <div class="bowl-orbit orbit-3">🥩</div>
+        <div class="bowl-orbit orbit-4">🥕</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <span class="feature-icon">🌱</span>
+      <h3>100% Natural</h3>
+      <p>No fillers, no artificial anything. Just real whole food.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">👩‍⚕️</span>
+      <h3>Vet Approved</h3>
+      <p>Every recipe is formulated by feline nutritionists.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🏡</span>
+      <h3>Small Batch</h3>
+      <p>Cooked fresh in small batches, never mass-produced.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🚚</span>
+      <h3>Fresh Delivery</h3>
+      <p>Shipped cold to your door in eco-friendly packaging.</p>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="section-header">
+    <div class="section-tag reveal">The Good Stuff</div>
+    <h2 class="reveal">Pick Your Cat's Faves</h2>
+  </div>
+  <div class="menu-cards">
+    <div class="meal-card reveal">
+      <div class="meal-img">
+        🍲
+        <span class="meal-sticker">Best Seller!</span>
+      </div>
+      <div class="meal-info">
+        <h3>Purr Pantry Complete</h3>
+        <p>Our signature recipe with chicken, liver, mackerel, pumpkin & carrot. Balanced nutrition for everyday feeding and hydration.</p>
+        <div class="meal-bottom">
+          <span class="meal-price">from ৳250</span>
+          <a href="checkout.html" class="meal-btn">+</a>
+        </div>
+      </div>
+    </div>
+    <div class="meal-card reveal">
+      <div class="meal-img">
+        🍗
+        <span class="meal-sticker">Gentle!</span>
+      </div>
+      <div class="meal-info">
+        <h3>Pure Chicken</h3>
+        <p>Simple and gentle. Chicken, liver, pumpkin & carrot -- same goodness, no fish. For cats that don't like fish.</p>
+        <div class="meal-bottom">
+          <span class="meal-price">from ৳220</span>
+          <a href="checkout.html" class="meal-btn">+</a>
+        </div>
+      </div>
+    </div>
+    <div class="meal-card reveal">
+      <div class="meal-img">
+        🐟
+        <span class="meal-sticker">Fish Lovers!</span>
+      </div>
+      <div class="meal-info">
+        <h3>Ocean Feast</h3>
+        <p>Fish lover's favorite. Mackerel, pumpkin & carrot. Irresistible aroma for seafood loving cats. Supplemental meal or rotational flavor.</p>
+        <div class="meal-bottom">
+          <span class="meal-price">from ৳260</span>
+          <a href="checkout.html" class="meal-btn">+</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-it-works" id="how">
+  <div class="section-header">
+    <div class="section-tag reveal">Super Easy</div>
+    <h2 class="reveal">How It Works</h2>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <div class="step-icon">📋</div>
+      <h4>Pick a Plan</h4>
+      <p>Choose meals and a delivery schedule that works for you and your cat.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">2</div>
+      <div class="step-icon">👩‍🍳</div>
+      <h4>We Cook It</h4>
+      <p>Fresh meals prepared in small batches the day before they ship.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">3</div>
+      <div class="step-icon">📦</div>
+      <h4>It Arrives</h4>
+      <p>Delivered cold in recyclable insulated packaging to your door.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">4</div>
+      <div class="step-icon">😻</div>
+      <h4>Happy Cat!</h4>
+      <p>Serve it up and enjoy the purrs, headbutts, and clean bowls.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="section-header">
+    <div class="section-tag reveal">Real Reviews</div>
+    <h2 class="reveal">Happy Cats, Happy Humans</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      <p>My picky eater Mochi literally SPRINTS to her bowl now. I've never seen anything like it. Purr Pantry changed mealtime forever.</p>
+      <div class="review-author">
+        <div class="review-avatar">🐱</div>
+        <div>
+          <div class="review-name">Sarah K.</div>
+          <div class="review-cat">Cat mom to Mochi</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      <p>Our vet was blown away by the improvement in Whiskers' coat and energy. Real food really does make a difference.</p>
+      <div class="review-author">
+        <div class="review-avatar">🐈</div>
+        <div>
+          <div class="review-name">James T.</div>
+          <div class="review-cat">Cat dad to Whiskers</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+      <p>I used to make cat food myself but couldn't keep up. Purr Pantry does it better than I ever could, and my three cats agree!</p>
+      <div class="review-author">
+        <div class="review-avatar">😺</div>
+        <div>
+          <div class="review-name">Emily R.</div>
+          <div class="review-cat">Mom to Luna, Bean & Fig</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="cta">
+  <h2 class="reveal">Ready to make your cat's <span class="highlight">day</span>?</h2>
+  <p class="reveal">Try the starter box. Free shipping. Cancel anytime. No weird commitments.</p>
+  <a href="checkout.html" class="cta-price reveal">Order Now &rarr;</a>
+</section>
+
+<footer>
+  <div class="logo">
+    <span class="logo-paw">🐾</span>
+    Purr Pantry
+  </div>
+  <span>&copy; 2026 Purr Pantry. Made with love for cats.</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
