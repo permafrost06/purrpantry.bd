@@ -779,6 +779,54 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  .floating-socials {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 120;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .floating-socials a {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: white;
+    box-shadow: 0 8px 24px rgba(45, 42, 50, 0.18);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .floating-socials a:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 12px 30px rgba(45, 42, 50, 0.24);
+  }
+
+  .floating-socials svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+  }
+
+  .social-facebook { background: #1877f2; }
+  .social-instagram { background: linear-gradient(135deg, #f58529, #dd2a7b 50%, #8134af); }
+
+  @media (max-width: 640px) {
+    .floating-socials {
+      right: 0.9rem;
+      bottom: 0.9rem;
+      gap: 0.55rem;
+    }
+
+    .floating-socials a {
+      width: 44px;
+      height: 44px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -988,6 +1036,19 @@
   </div>
   <span>&copy; 2026 Purr Pantry. Made with love for cats.</span>
 </footer>
+
+<div class="floating-socials" aria-label="Social links">
+  <a class="social-facebook" href="https://www.facebook.com/profile.php?id=61589334178100" target="_blank" rel="noopener" aria-label="Visit Purr Pantry on Facebook">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M22 12.06C22 6.49 17.52 2 12 2S2 6.49 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.5-3.91 3.77-3.91 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.77l-.44 2.91h-2.33V22C18.34 21.24 22 17.08 22 12.06z" />
+    </svg>
+  </a>
+  <a class="social-instagram" href="https://www.instagram.com/purrpantry_" target="_blank" rel="noopener" aria-label="Visit Purr Pantry on Instagram">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5zM12 7.25A4.75 4.75 0 1 1 12 16.75 4.75 4.75 0 0 1 12 7.25zm0 2A2.75 2.75 0 1 0 12 14.75 2.75 2.75 0 0 0 12 9.25zm5.25-2.3a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z" />
+    </svg>
+  </a>
+</div>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
