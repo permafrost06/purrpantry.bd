@@ -509,6 +509,175 @@
     transform: rotate(90deg) scale(1.1);
   }
 
+  /* Nutrition */
+  .nutrition {
+    padding: 6rem 4rem;
+    background:
+      radial-gradient(circle at 12% 15%, rgba(255, 210, 63, 0.26) 0%, transparent 24%),
+      radial-gradient(circle at 88% 80%, rgba(126, 207, 179, 0.24) 0%, transparent 28%),
+      white;
+  }
+
+  .nutrition .section-header {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-intro {
+    margin: 1rem auto 0;
+    max-width: 620px;
+    color: var(--charcoal);
+    opacity: 0.68;
+    line-height: 1.7;
+  }
+
+  .nutrition-map {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .nutrition-bowl {
+    position: sticky;
+    top: 8rem;
+    min-height: 340px;
+    border-radius: 42% 58% 48% 52%;
+    background: var(--charcoal);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    box-shadow: 0 22px 55px rgba(45, 42, 50, 0.16);
+  }
+
+  .nutrition-bowl::before {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border: 2px dashed rgba(255,255,255,0.22);
+    border-radius: inherit;
+  }
+
+  .nutrition-bowl-icon {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .nutrition-bowl h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+
+  .nutrition-bowl p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    opacity: 0.76;
+    position: relative;
+  }
+
+  .nutrition-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .nutrition-item {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 1.1rem;
+    padding: 0.95rem 0;
+    border-bottom: 2px dashed rgba(255, 229, 212, 0.95);
+  }
+
+  .nutrition-item:first-child {
+    border-top: 2px dashed rgba(255, 229, 212, 0.95);
+  }
+
+  .nutrition-marker {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--cream);
+    font-size: 1.9rem;
+    box-shadow: inset 0 0 0 2px white;
+  }
+
+  .nutrition-copy h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.9rem;
+    color: var(--charcoal);
+    margin-bottom: 0.55rem;
+    opacity: 0.58;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .nutrition-copy p {
+    color: var(--charcoal);
+    line-height: 1.6;
+    opacity: 0.72;
+    margin-bottom: 0.8rem;
+  }
+
+  .nutrition-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .nutrition-pills span {
+    background: var(--sunshine);
+    color: var(--brown);
+    border: 2px solid white;
+    border-radius: 50px;
+    padding: 0.38rem 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    box-shadow: 0 8px 18px rgba(255, 210, 63, 0.22);
+  }
+
+  @media (max-width: 900px) {
+    .nutrition-map {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .nutrition-bowl {
+      position: relative;
+      top: auto;
+      min-height: 260px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .nutrition {
+      padding: 4rem 1.25rem;
+    }
+
+    .nutrition-item {
+      grid-template-columns: 1fr;
+      padding: 1.2rem 0;
+      margin: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      border-bottom: 2px dashed rgba(255, 229, 212, 0.95);
+    }
+  }
+
   /* How it works */
   .how-it-works {
     padding: 6rem 4rem;
@@ -942,6 +1111,79 @@
         <div class="meal-bottom">
           <span class="meal-price">from ৳260</span>
           <a href="checkout.html" class="meal-btn">+</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nutrition" id="nutrition">
+  <div class="section-header">
+    <div class="section-tag reveal">Inside Every Bowl</div>
+    <h2 class="reveal">Nutrition from ingredients used</h2>
+    <p class="section-intro reveal">Simple ingredients, grouped by what they bring to the bowl: protein, taurine, omega-3s, vitamins, minerals, fiber, hydration, and steady energy.</p>
+  </div>
+  <div class="nutrition-map">
+    <aside class="nutrition-bowl reveal">
+      <div class="nutrition-bowl-icon">🍲</div>
+      <h3>Built by nutrient</h3>
+      <p>Each ingredient earns its place by adding a specific nutritional benefit.</p>
+    </aside>
+    <div class="nutrition-list">
+      <div class="nutrition-item reveal">
+        <div class="nutrition-marker">💪</div>
+        <div class="nutrition-copy">
+          <h3>Lean protein & amino acids</h3>
+          <p>Supports everyday muscle maintenance and complete nourishment.</p>
+          <div class="nutrition-pills"><span>Chicken</span><span>Chicken heart</span><span>Fish</span></div>
+        </div>
+      </div>
+      <div class="nutrition-item reveal">
+        <div class="nutrition-marker">🐱</div>
+        <div class="nutrition-copy">
+          <h3>Taurine & organ nutrients</h3>
+          <p>Organ meats bring taurine, vitamin A, iron, healthy fats, and dense natural micronutrients.</p>
+          <div class="nutrition-pills"><span>Chicken liver</span><span>Chicken heart</span></div>
+        </div>
+      </div>
+      <div class="nutrition-item reveal">
+        <div class="nutrition-marker">🐟</div>
+        <div class="nutrition-copy">
+          <h3>Omega-3 fatty acids</h3>
+          <p>EPA and DHA support the recipe with valuable fatty acids from seafood.</p>
+          <div class="nutrition-pills"><span>Fish</span><span>EPA</span><span>DHA</span></div>
+        </div>
+      </div>
+      <div class="nutrition-item reveal">
+        <div class="nutrition-marker">✨</div>
+        <div class="nutrition-copy">
+          <h3>Vitamins</h3>
+          <p>A mix of B-complex vitamins, vitamin B12, vitamin D, vitamin A, vitamin C, and vitamin E.</p>
+          <div class="nutrition-pills"><span>Chicken</span><span>Chicken liver</span><span>Fish</span><span>Pumpkin</span></div>
+        </div>
+      </div>
+      <div class="nutrition-item reveal">
+        <div class="nutrition-marker">🧲</div>
+        <div class="nutrition-copy">
+          <h3>Minerals & trace nutrients</h3>
+          <p>Includes iron, iodine, potassium, essential minerals, and trace nutrients for balanced support.</p>
+          <div class="nutrition-pills"><span>Chicken</span><span>Chicken liver</span><span>Chicken heart</span><span>Fish</span><span>Carrot</span><span>Potato</span></div>
+        </div>
+      </div>
+      <div class="nutrition-item reveal">
+        <div class="nutrition-marker">🌿</div>
+        <div class="nutrition-copy">
+          <h3>Fiber & digestion support</h3>
+          <p>Gentle plant fiber helps round out the meal and supports comfortable digestion.</p>
+          <div class="nutrition-pills"><span>Pumpkin</span><span>Carrot</span></div>
+        </div>
+      </div>
+      <div class="nutrition-item reveal">
+        <div class="nutrition-marker">⚡</div>
+        <div class="nutrition-copy">
+          <h3>Energy, hydration & antioxidants</h3>
+          <p>Carbohydrates for energy, moisture-friendly vegetables, and antioxidants like beta-carotene.</p>
+          <div class="nutrition-pills"><span>Potato</span><span>Carrot</span><span>Pumpkin</span></div>
         </div>
       </div>
     </div>
