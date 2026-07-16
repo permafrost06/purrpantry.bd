@@ -864,6 +864,158 @@
     .switching-columns { grid-template-columns: 1fr; }
   }
 
+  /* Feeding & Storage */
+  .guide {
+    padding: 6rem 4rem;
+    background: white;
+    position: relative;
+  }
+
+  .guide-block {
+    max-width: 1100px;
+    margin: 0 auto 3rem;
+  }
+
+  .guide-block:last-child { margin-bottom: 0; }
+
+  .guide-block > h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.6rem;
+    color: var(--brown);
+  }
+
+  .feeding-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .feeding-card {
+    background: var(--cream);
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .feeding-card:hover { transform: translateY(-5px); }
+
+  .feeding-card .weight-icon { font-size: 2.4rem; margin-bottom: 0.5rem; }
+
+  .feeding-card h4 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+    color: var(--charcoal);
+  }
+
+  .feeding-card .amount {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--coral);
+  }
+
+  .guide-note {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    opacity: 0.7;
+    line-height: 1.6;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .storage-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .storage-card {
+    background: var(--cream);
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .storage-card:hover { transform: translateY(-5px); }
+
+  .storage-card .storage-icon { font-size: 2.2rem; margin-bottom: 0.6rem; }
+
+  .storage-card h4 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    color: var(--charcoal);
+  }
+
+  .storage-card p {
+    font-size: 0.85rem;
+    color: var(--charcoal);
+    opacity: 0.65;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .storage-card .highlight {
+    display: inline-block;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--brown);
+    background: white;
+    border-radius: 14px;
+    padding: 0.3rem 0.9rem;
+  }
+
+  .guide-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .guide-panel {
+    background: var(--cream);
+    border-radius: 28px;
+    padding: 2.5rem;
+  }
+
+  .guide-panel h4 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 1.2rem;
+    color: var(--charcoal);
+  }
+
+  .guide-list {
+    list-style: none;
+  }
+
+  .guide-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--charcoal);
+    margin-bottom: 0.8rem;
+  }
+
+  .guide-list li:last-child { margin-bottom: 0; }
+
+  .guide-list .mark { flex-shrink: 0; }
+
+  @media (max-width: 900px) {
+    .feeding-grid { grid-template-columns: 1fr; }
+    .storage-grid { grid-template-columns: 1fr 1fr; }
+    .guide-columns { grid-template-columns: 1fr; }
+  }
+
   /* Reviews */
   .reviews {
     padding: 6rem 4rem;
@@ -1128,6 +1280,7 @@
     <li><a href="#menu">Menu</a></li>
     <li><a href="#how">How It Works</a></li>
     <li><a href="#switching">Switching</a></li>
+    <li><a href="#guide">Guide</a></li>
     <li><a href="#reviews">Reviews</a></li>
     <li><a href="checkout.html" class="nav-cta">Order Now</a></li>
   </ul>
@@ -1386,6 +1539,84 @@
       <h3>For Dry Food Addicts 🍪</h3>
       <p>Some cats who have eaten only dry food for years may need extra time. Start with a small spoonful mixed into their regular food and increase gradually.</p>
       <p>Patience is key.</p>
+    </div>
+  </div>
+</section>
+
+<section class="guide" id="guide">
+  <div class="section-header">
+    <div class="section-tag reveal">Good To Know</div>
+    <h2 class="reveal">Feeding &amp; Storage Guide</h2>
+  </div>
+
+  <div class="guide-block reveal">
+    <h3>Feeding Recommendations</h3>
+    <div class="feeding-grid">
+      <div class="feeding-card">
+        <div class="weight-icon">🐱</div>
+        <h4>2–3kg cat</h4>
+        <div class="amount">100–150g daily</div>
+      </div>
+      <div class="feeding-card">
+        <div class="weight-icon">🐱</div>
+        <h4>3–5kg cat</h4>
+        <div class="amount">150–250g daily</div>
+      </div>
+      <div class="feeding-card">
+        <div class="weight-icon">🐱</div>
+        <h4>5kg+ cat</h4>
+        <div class="amount">200–300g daily</div>
+      </div>
+    </div>
+    <p class="guide-note">Daily feeding requirements vary based on age, weight, activity level, and metabolism. Adjust portions based on your cat's body condition and appetite.</p>
+  </div>
+
+  <div class="guide-block reveal">
+    <h3>Storage Instructions</h3>
+    <div class="storage-grid">
+      <div class="storage-card">
+        <div class="storage-icon">❄️</div>
+        <h4>Frozen</h4>
+        <p>Store immediately in freezer.</p>
+        <span class="highlight">Best within 2–3 months</span>
+      </div>
+      <div class="storage-card">
+        <div class="storage-icon">🧊</div>
+        <h4>Thawing</h4>
+        <p>Move desired portion to refrigerator overnight.</p>
+      </div>
+      <div class="storage-card">
+        <div class="storage-icon">🥣</div>
+        <h4>After Opening</h4>
+        <p>Keep refrigerated.</p>
+        <span class="highlight">Use within 2–5 days</span>
+      </div>
+      <div class="storage-card">
+        <div class="storage-icon">🚫</div>
+        <h4>Do Not</h4>
+        <p>❌ Heat on stove<br>❌ Leave out too long<br>❌ Microwave in sealed packaging</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-block reveal">
+    <div class="guide-columns">
+      <div class="guide-panel">
+        <h4>Serving Tips 🍽️</h4>
+        <ul class="guide-list">
+          <li><span class="mark">✔️</span> Serve at room temperature or cold</li>
+          <li><span class="mark">✔️</span> Warm slightly for picky cats</li>
+          <li><span class="mark">✔️</span> Always provide fresh water</li>
+        </ul>
+      </div>
+      <div class="guide-panel">
+        <h4>Do Not ⚠️</h4>
+        <ul class="guide-list">
+          <li><span class="mark">❌</span> Heat on stove</li>
+          <li><span class="mark">❌</span> Leave food out for extended periods</li>
+          <li><span class="mark">❌</span> Microwave in sealed packaging</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
