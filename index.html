@@ -864,6 +864,51 @@
     .switching-columns { grid-template-columns: 1fr; }
   }
 
+  /* Ingredients Promise */
+  .promise {
+    padding: 6rem 4rem;
+    background: var(--lavender);
+    position: relative;
+  }
+
+  .promise .section-header h2 { color: white; }
+  .promise .section-tag { background: white; }
+
+  .promise-badge {
+    text-align: center;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 2.5rem;
+  }
+
+  .promise-badge span { margin-right: 0.4rem; }
+
+  .promise-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .promise-item {
+    background: white;
+    border-radius: 18px;
+    padding: 1rem 1.2rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    transition: transform 0.3s;
+  }
+
+  .promise-item:hover { transform: translateY(-4px); }
+
+  @media (max-width: 900px) {
+    .promise-grid { grid-template-columns: 1fr 1fr; }
+  }
+
   /* Feeding & Storage */
   .guide {
     padding: 6rem 4rem;
@@ -1279,6 +1324,7 @@
   <ul>
     <li><a href="#menu">Menu</a></li>
     <li><a href="#how">How It Works</a></li>
+    <li><a href="#promise">Ingredients</a></li>
     <li><a href="#switching">Switching</a></li>
     <li><a href="#guide">Guide</a></li>
     <li><a href="#reviews">Reviews</a></li>
@@ -1493,6 +1539,31 @@
       <h4>Happy Cat!</h4>
       <p>Serve it up and enjoy the purrs, headbutts, and clean bowls.</p>
     </div>
+  </div>
+</section>
+
+<section class="promise" id="promise">
+  <div class="section-header">
+    <div class="section-tag reveal">Our Ingredients Promise</div>
+    <h2 class="reveal">Real Food You Can Trust</h2>
+    <p class="promise-badge reveal">100% Halal Ingredients</p>
+  </div>
+  <div class="promise-grid">
+    <div class="promise-item reveal">Chicken</div>
+    <div class="promise-item reveal">Chicken Liver</div>
+    <div class="promise-item reveal">Chicken Heart</div>
+    <div class="promise-item reveal">Mackerel</div>
+    <div class="promise-item reveal">Sardines</div>
+    <div class="promise-item reveal">Tuna</div>
+    <div class="promise-item reveal">Pumpkin</div>
+    <div class="promise-item reveal">Carrot</div>
+    <div class="promise-item reveal">Potato</div>
+    <div class="promise-item reveal">Freshly Cooked</div>
+    <div class="promise-item reveal">Small-Batch Preparation</div>
+    <div class="promise-item reveal">High Moisture</div>
+    <div class="promise-item reveal">No Artificial Colors</div>
+    <div class="promise-item reveal">No Artificial Flavors</div>
+    <div class="promise-item reveal">No Artificial Preservatives</div>
   </div>
 </section>
 
