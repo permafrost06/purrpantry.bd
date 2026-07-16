@@ -1313,6 +1313,100 @@
       height: 44px;
     }
   }
+
+  /* ============================================
+     Mobile / tablet responsive layout
+     ============================================ */
+  @media (max-width: 768px) {
+    /* Nav: allow the pill to fit and wrap links */
+    nav {
+      top: 0.6rem;
+      left: 0.6rem;
+      right: 0.6rem;
+      transform: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem 0.75rem;
+      padding: 0.7rem 1rem;
+      border-radius: 24px;
+    }
+    nav ul {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.15rem 0.35rem;
+    }
+    nav a { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+    .logo { font-size: 1.15rem; }
+
+    /* Uniform, tighter side padding for every section */
+    .hero,
+    .features,
+    .menu,
+    .nutrition,
+    .promise,
+    .switching,
+    .guide,
+    .cta {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    .hero { padding-top: 8rem; padding-bottom: 3rem; min-height: 0; }
+    .features,
+    .menu,
+    .promise,
+    .switching,
+    .guide,
+    .cta { padding-top: 4rem; padding-bottom: 4rem; }
+    footer { padding: 3rem 1.5rem; }
+    .reviews .section-header { padding-left: 1.5rem; padding-right: 1.5rem; }
+
+    /* Hero: stack text above visual */
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      text-align: center;
+    }
+    .hero-text { display: flex; flex-direction: column; align-items: center; }
+    .hero h1 { font-size: 2.75rem; }
+    .hero p { margin-left: auto; margin-right: auto; }
+    .hero-btns { justify-content: center; flex-wrap: wrap; }
+    .hero-bowl {
+      width: min(320px, 80vw);
+      height: min(320px, 80vw);
+    }
+    .hero-bowl-inner { font-size: 7rem; }
+
+    /* Headings */
+    .section-header h2 { font-size: 2.1rem; }
+    .cta h2 { font-size: 2.1rem; }
+
+    /* Collapse remaining multi-column grids */
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .menu-cards { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .promise-grid { grid-template-columns: 1fr 1fr; }
+    .transition-steps { grid-template-columns: 1fr 1fr; }
+
+    /* Reviews marquee: shorter cards on phones */
+    .review-card { height: 55vh; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 2.3rem; }
+    .section-header h2 { font-size: 1.8rem; }
+    .cta h2 { font-size: 1.8rem; }
+    .hero-btns .btn-fun { width: 100%; text-align: center; }
+
+    /* Single column for the tightest phones */
+    .features-grid,
+    .promise-grid,
+    .transition-steps,
+    .storage-grid { grid-template-columns: 1fr; }
+
+    .review-card { height: 50vh; }
+
+    nav a { font-size: 0.75rem; padding: 0.35rem 0.6rem; }
+  }
 </style>
 </head>
 <body>
