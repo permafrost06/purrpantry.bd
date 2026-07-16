@@ -1069,63 +1069,47 @@
 
   .reviews-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 1.5rem;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
   .review-card {
-    background: white;
-    border-radius: 24px;
-    padding: 2rem;
     position: relative;
+    border-radius: 24px;
+    overflow: hidden;
     transition: transform 0.3s;
+    background: var(--charcoal);
   }
 
   .review-card:hover { transform: translateY(-5px); }
 
-  .review-stars {
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    letter-spacing: 0.1em;
+  .review-video {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    display: block;
+    background: var(--charcoal);
   }
-
-  .review-card p {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--charcoal);
-    margin-bottom: 1.2rem;
-  }
-
-  .review-author {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .review-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-  }
-
-  .review-card:nth-child(1) .review-avatar { background: var(--soft-pink); }
-  .review-card:nth-child(2) .review-avatar { background: #D4E8D1; }
-  .review-card:nth-child(3) .review-avatar { background: #E0D6F0; }
 
   .review-name {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2.5rem 1rem 1rem;
+    font-family: 'Fredoka', sans-serif;
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+    color: white;
+    text-align: center;
+    background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
   }
 
-  .review-cat {
-    font-size: 0.75rem;
-    opacity: 0.5;
+  @media (max-width: 900px) {
+    .reviews-grid { grid-template-columns: 1fr 1fr; }
   }
 
   /* CTA */
@@ -1694,42 +1678,29 @@
 
 <section class="reviews" id="reviews">
   <div class="section-header">
-    <div class="section-tag reveal">Real Reviews</div>
+    <div class="section-tag reveal">Happy Customeows</div>
     <h2 class="reveal">Happy Cats, Happy Humans</h2>
   </div>
   <div class="reviews-grid">
     <div class="review-card reveal">
-      <div class="review-stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-      <p>My picky eater Mochi literally SPRINTS to her bowl now. I've never seen anything like it. Purr Pantry changed mealtime forever.</p>
-      <div class="review-author">
-        <div class="review-avatar">🐱</div>
-        <div>
-          <div class="review-name">Sarah K.</div>
-          <div class="review-cat">Cat mom to Mochi</div>
-        </div>
-      </div>
+      <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Farah%20Mahzabin%20Khan.mp4"></video>
+      <div class="review-name">Farah Mahzabin Khan</div>
     </div>
     <div class="review-card reveal">
-      <div class="review-stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-      <p>Our vet was blown away by the improvement in Whiskers' coat and energy. Real food really does make a difference.</p>
-      <div class="review-author">
-        <div class="review-avatar">🐈</div>
-        <div>
-          <div class="review-name">James T.</div>
-          <div class="review-cat">Cat dad to Whiskers</div>
-        </div>
-      </div>
+      <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Kakon%20Sultana.mp4"></video>
+      <div class="review-name">Kakon Sultana</div>
     </div>
     <div class="review-card reveal">
-      <div class="review-stars">&#11088;&#11088;&#11088;&#11088;&#11088;</div>
-      <p>I used to make cat food myself but couldn't keep up. Purr Pantry does it better than I ever could, and my three cats agree!</p>
-      <div class="review-author">
-        <div class="review-avatar">😺</div>
-        <div>
-          <div class="review-name">Emily R.</div>
-          <div class="review-cat">Mom to Luna, Bean & Fig</div>
-        </div>
-      </div>
+      <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Nowshin%20Tabassum%20Mashaba.mp4"></video>
+      <div class="review-name">Nowshin Tabassum Mashaba</div>
+    </div>
+    <div class="review-card reveal">
+      <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Tom%20and%20Trixie.mp4"></video>
+      <div class="review-name">Tom and Trixie</div>
+    </div>
+    <div class="review-card reveal">
+      <img class="review-video" src="images/Rahman%20Sofin.jpeg" alt="Review from Rahman Sofin" loading="lazy">
+      <div class="review-name">Rahman Sofin</div>
     </div>
   </div>
 </section>
