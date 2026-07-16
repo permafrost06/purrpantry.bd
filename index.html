@@ -1063,31 +1063,48 @@
 
   /* Reviews */
   .reviews {
-    padding: 6rem 4rem;
+    padding: 6rem 0;
     background: var(--cream);
+    overflow: hidden;
   }
 
-  .reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+  .reviews .section-header { padding: 0 4rem; }
+
+  .reviews-marquee {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+  }
+
+  .reviews-track {
+    display: flex;
     gap: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: max-content;
+    animation: reviewMarquee 45s linear infinite;
+  }
+
+  .reviews-marquee:hover .reviews-track { animation-play-state: paused; }
+
+  @keyframes reviewMarquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 
   .review-card {
     position: relative;
+    flex: 0 0 auto;
+    height: 70vh;
+    aspect-ratio: 9 / 16;
     border-radius: 24px;
     overflow: hidden;
-    transition: transform 0.3s;
     background: var(--charcoal);
   }
 
-  .review-card:hover { transform: translateY(-5px); }
-
   .review-video {
     width: 100%;
-    aspect-ratio: 9 / 16;
+    height: 100%;
     object-fit: cover;
     display: block;
     background: var(--charcoal);
@@ -1098,18 +1115,18 @@
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 2.5rem 1rem 1rem;
+    padding: 3rem 1.2rem 1.2rem;
     font-family: 'Fredoka', sans-serif;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     color: white;
     text-align: center;
-    background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
     text-shadow: 0 1px 4px rgba(0,0,0,0.5);
   }
 
   @media (max-width: 900px) {
-    .reviews-grid { grid-template-columns: 1fr 1fr; }
+    .review-card { height: 60vh; }
   }
 
   /* CTA */
@@ -1352,9 +1369,9 @@
       <p>No fillers, no artificial anything. Just real whole food.</p>
     </div>
     <div class="feature-card reveal">
-      <span class="feature-icon">👩‍⚕️</span>
-      <h3>Vet Approved</h3>
-      <p>Every recipe is formulated by feline nutritionists.</p>
+      <span class="feature-icon">💧</span>
+      <h3>Complete Hydration</h3>
+      <p>High-moisture meals keep your cat hydrated with every bite.</p>
     </div>
     <div class="feature-card reveal">
       <span class="feature-icon">🏡</span>
@@ -1681,26 +1698,48 @@
     <div class="section-tag reveal">Happy Customeows</div>
     <h2 class="reveal">Happy Cats, Happy Humans</h2>
   </div>
-  <div class="reviews-grid">
-    <div class="review-card reveal">
-      <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Farah%20Mahzabin%20Khan.mp4"></video>
-      <div class="review-name">Farah Mahzabin Khan</div>
-    </div>
-    <div class="review-card reveal">
-      <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Kakon%20Sultana.mp4"></video>
-      <div class="review-name">Kakon Sultana</div>
-    </div>
-    <div class="review-card reveal">
-      <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Nowshin%20Tabassum%20Mashaba.mp4"></video>
-      <div class="review-name">Nowshin Tabassum Mashaba</div>
-    </div>
-    <div class="review-card reveal">
-      <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Tom%20and%20Trixie.mp4"></video>
-      <div class="review-name">Tom and Trixie</div>
-    </div>
-    <div class="review-card reveal">
-      <img class="review-video" src="images/Rahman%20Sofin.jpeg" alt="Review from Rahman Sofin" loading="lazy">
-      <div class="review-name">Rahman Sofin</div>
+  <div class="reviews-marquee">
+    <div class="reviews-track">
+      <div class="review-card">
+        <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Farah%20Mahzabin%20Khan.mp4"></video>
+        <div class="review-name">Farah Mahzabin Khan</div>
+      </div>
+      <div class="review-card">
+        <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Kakon%20Sultana.mp4"></video>
+        <div class="review-name">Kakon Sultana</div>
+      </div>
+      <div class="review-card">
+        <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Nowshin%20Tabassum%20Mashaba.mp4"></video>
+        <div class="review-name">Nowshin Tabassum Mashaba</div>
+      </div>
+      <div class="review-card">
+        <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Tom%20and%20Trixie.mp4"></video>
+        <div class="review-name">Tom and Trixie</div>
+      </div>
+      <div class="review-card">
+        <img class="review-video" src="images/Rahman%20Sofin.jpeg" alt="Review from Rahman Sofin" loading="lazy">
+        <div class="review-name">Rahman Sofin</div>
+      </div>
+      <div class="review-card" aria-hidden="true">
+        <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Farah%20Mahzabin%20Khan.mp4"></video>
+        <div class="review-name">Farah Mahzabin Khan</div>
+      </div>
+      <div class="review-card" aria-hidden="true">
+        <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Kakon%20Sultana.mp4"></video>
+        <div class="review-name">Kakon Sultana</div>
+      </div>
+      <div class="review-card" aria-hidden="true">
+        <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Nowshin%20Tabassum%20Mashaba.mp4"></video>
+        <div class="review-name">Nowshin Tabassum Mashaba</div>
+      </div>
+      <div class="review-card" aria-hidden="true">
+        <video class="review-video" autoplay muted loop playsinline preload="metadata" src="videos/Tom%20and%20Trixie.mp4"></video>
+        <div class="review-name">Tom and Trixie</div>
+      </div>
+      <div class="review-card" aria-hidden="true">
+        <img class="review-video" src="images/Rahman%20Sofin.jpeg" alt="" loading="lazy">
+        <div class="review-name">Rahman Sofin</div>
+      </div>
     </div>
   </div>
 </section>
